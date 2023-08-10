@@ -1,15 +1,46 @@
-The test for our simple "Hello World" program will assert if the program is correctly outputting "Hello, World!" to the console. 
+Main Implementation:
 
-Since the C# console WriteLine() is void and does not return any value, we would need to redirect the standard console output to a StringWriter. Afterwards, we can retrieve the string to use for our test assertion.
+The core namespaces in C# for this assignment are:
+- System: This namespace contains fundamental classes and base classes that define commonly-used value and reference data types, events and event handlers, interfaces, attributes, and processing exceptions.
 
-Here are the tests you need to write: 
-- Create a StringWriter to redirect the console output. 
-- Use Assert to check if the console output matches "Hello, World!".
+The core classes and methods for this assignment are:
+- Program: This is the main class of the application.
+- Main(): This is the main method of 'Program' class and the entry point to the application. Inside this method, I will print out "Hello, World!" message.
 
-For example:
-- The "HelloWorldOutputTest" test case checks if the program prints "Hello, World!".
+Here are the file and its content:
 
-Here's the implementation for the "HelloWorldOutputTest" test case:
+Program.cs
+```csharp
+using System;
+
+class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine("Hello, World!");
+    }
+}
+```
+
+In the above code,
+
+- 'using System;' is used for including the System namespace in the program. This namespace contains the 'Console' class.
+- The 'Program' class is the container for the program. In C#, every application must contain a Main method.
+- The Main method is the entry point of the application. The execution of the program begins from here.
+- Inside the Main() method, 'Console.WriteLine("Hello, World!");' is used to print "Hello, World!" to console.
+
+Test Implementation:
+
+The core namespaces for test are:
+- System: For capturing console output.
+- System.IO: For redirecting console output.
+- Xunit: For asserting test conditions.
+
+The core classes and methods for testing are:
+- ProgramTest: This is the class defining all the test cases.
+- HelloWorldOutputTest(): This method tests if the program prints "Hello, World!".
+
+Here are the file and its content:
 
 ProgramTest.cs
 ```csharp
@@ -32,8 +63,10 @@ public class ProgramTest
 }
 ```
 
-This Xunit test checks that the console output of the main program is exactly "Hello, World!" when the program is run. The output stream of the console is temporarily redirected to a StringWriter object so that we can get and test the output of the console.
+In the above code,
 
-The ".Trim()" is used to remove any trailing newline characters which Console.WriteLine() appends to the string. If this is not removed, our test case would fail since "Hello, World! " is not equal to "Hello, World!". 
-
-On start, the main program should execute and print "Hello, World!" on the console. The Xunit test captures this console output and checks if it is as expected.
+- 'var sw = new StringWriter();' is used to create an instance of StringWriter to which the console output can be redirected.
+- 'Console.SetOut(sw);' is used to redirect console output to 'sw'.
+- 'Program.Main(new string[0]);' is used to execute the main program where we expect "Hello, World!" to be printed.
+- 'var result = sw.ToString().Trim();' is used to capture the redirected console output.
+- 'Assert.Equal("Hello, World!", result);' is used to compare the obtained results with the expected output.
