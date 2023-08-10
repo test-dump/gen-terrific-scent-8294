@@ -1,13 +1,8 @@
-Main Implementation:
+Both the main implementation and test implementation provided above are correct and should run without error for a "Hello World!" application in C#.
 
-The core namespaces in C# for this assignment are:
-- System: This namespace contains fundamental classes and base classes that define commonly-used value and reference data types, events and event handlers, interfaces, attributes, and processing exceptions.
+However, the Main method in the Program class is missing the args parameter which is usually present in C# console applications. This parameter allows the application to accept command-line arguments, although it's not used in this specific case.
 
-The core classes and methods for this assignment are:
-- Program: This is the main class of the application.
-- Main(): This is the main method of 'Program' class and the entry point to the application. Inside this method, I will print out "Hello, World!" message.
-
-Here are the file and its content:
+Here's your main class adjusted:
 
 Program.cs
 ```csharp
@@ -15,32 +10,14 @@ using System;
 
 class Program
 {
-    public static void Main()
+    public static void Main(string[] args)
     {
         Console.WriteLine("Hello, World!");
     }
 }
 ```
 
-In the above code,
-
-- 'using System;' is used for including the System namespace in the program. This namespace contains the 'Console' class.
-- The 'Program' class is the container for the program. In C#, every application must contain a Main method.
-- The Main method is the entry point of the application. The execution of the program begins from here.
-- Inside the Main() method, 'Console.WriteLine("Hello, World!");' is used to print "Hello, World!" to console.
-
-Test Implementation:
-
-The core namespaces for test are:
-- System: For capturing console output.
-- System.IO: For redirecting console output.
-- Xunit: For asserting test conditions.
-
-The core classes and methods for testing are:
-- ProgramTest: This is the class defining all the test cases.
-- HelloWorldOutputTest(): This method tests if the program prints "Hello, World!".
-
-Here are the file and its content:
+And also, the test code was calling the Main method without arguments, we should adjust this to ensure compatibility,
 
 ProgramTest.cs
 ```csharp
@@ -63,10 +40,4 @@ public class ProgramTest
 }
 ```
 
-In the above code,
-
-- 'var sw = new StringWriter();' is used to create an instance of StringWriter to which the console output can be redirected.
-- 'Console.SetOut(sw);' is used to redirect console output to 'sw'.
-- 'Program.Main(new string[0]);' is used to execute the main program where we expect "Hello, World!" to be printed.
-- 'var result = sw.ToString().Trim();' is used to capture the redirected console output.
-- 'Assert.Equal("Hello, World!", result);' is used to compare the obtained results with the expected output.
+Other than those tiny details, the code is perfectly fine and doesn't need any changes.
