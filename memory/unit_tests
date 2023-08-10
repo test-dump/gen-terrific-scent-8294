@@ -1,0 +1,39 @@
+The test for our simple "Hello World" program will assert if the program is correctly outputting "Hello, World!" to the console. 
+
+Since the C# console WriteLine() is void and does not return any value, we would need to redirect the standard console output to a StringWriter. Afterwards, we can retrieve the string to use for our test assertion.
+
+Here are the tests you need to write: 
+- Create a StringWriter to redirect the console output. 
+- Use Assert to check if the console output matches "Hello, World!".
+
+For example:
+- The "HelloWorldOutputTest" test case checks if the program prints "Hello, World!".
+
+Here's the implementation for the "HelloWorldOutputTest" test case:
+
+ProgramTest.cs
+```csharp
+using System;
+using System.IO;
+using Xunit;
+
+public class ProgramTest
+{
+    [Fact]
+    public void HelloWorldOutputTest()
+    {
+        var sw = new StringWriter();
+        Console.SetOut(sw);
+        Program.Main(new string[0]);
+
+        var result = sw.ToString().Trim();
+        Assert.Equal("Hello, World!", result);
+    }
+}
+```
+
+This Xunit test checks that the console output of the main program is exactly "Hello, World!" when the program is run. The output stream of the console is temporarily redirected to a StringWriter object so that we can get and test the output of the console.
+
+The ".Trim()" is used to remove any trailing newline characters which Console.WriteLine() appends to the string. If this is not removed, our test case would fail since "Hello, World! " is not equal to "Hello, World!". 
+
+On start, the main program should execute and print "Hello, World!" on the console. The Xunit test captures this console output and checks if it is as expected.
